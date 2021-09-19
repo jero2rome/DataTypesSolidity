@@ -58,4 +58,22 @@ contract FlowControl {
 
         return (giveDozenPrice);
     }
+
+    function calcDozenDiscountFOR(uint256 purchasedQty)
+        private
+        pure
+        returns (bool)
+    {
+        bool giveDozenPrice = false;
+        uint256 numDonuts = 1;
+
+        for (numDonuts = 1; numDonuts <= purchasedQty; numDonuts++) {
+            if (numDonuts >= 12) {
+                giveDozenPrice = true;
+                break;
+            }
+        }
+
+        return (giveDozenPrice);
+    }
 }
