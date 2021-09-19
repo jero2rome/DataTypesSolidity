@@ -7,28 +7,55 @@ pragma solidity ^0.5.16; // ^0.4.24;
  *
  */
 
-contract DataTypes2 {
-    uint256 x = 9;
-    int256 i = -68;
-    uint8 j = 17;
-    bool isEthereumCool = true;
-    address owner = msg.sender; // msg.sender is the Ethereum address of the account that sent this transaction
-    bytes32 bMsg = "hello";
-    string sMsg = "hello";
-
-    function getStateVariables()
-        public
-        view
-        returns (
-            uint256,
-            int256,
-            uint256,
-            bool,
-            address,
-            bytes32,
-            string memory
-        )
+contract FlowControl {
+    function calcDozenDiscountIF(uint256 purchasedQty)
+        private
+        pure
+        returns (bool)
     {
-        return (x, i, j, isEthereumCool, owner, bMsg, sMsg);
+        bool giveDozenPrice = false;
+
+        if (purchasedQty >= 12) giveDozenPrice = true;
+        else giveDozenPrice = false;
+
+        return (giveDozenPrice);
+    }
+
+    function calcDozenDiscountWHILE(uint256 purchasedQty)
+        private
+        pure
+        returns (bool)
+    {
+        bool giveDozenPrice = false;
+        uint256 numDonuts = 1;
+
+        while (numDonuts < purchasedQty) {
+            numDonuts++;
+            if (numDonuts >= 12) {
+                giveDozenPrice = true;
+                break;
+            }
+        }
+
+        return (giveDozenPrice);
+    }
+
+    function calcDozenDiscountDO(uint256 purchasedQty)
+        private
+        pure
+        returns (bool)
+    {
+        bool giveDozenPrice = false;
+        uint256 numDonuts = 1;
+
+        do {
+            numDonuts++;
+            if (numDonuts >= 12) {
+                giveDozenPrice = true;
+                break;
+            }
+        } while (numDonuts < purchasedQty);
+
+        return (giveDozenPrice);
     }
 }
